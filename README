@@ -1,0 +1,33 @@
+Notes
+-----
+
+Adds moodbar support (just like in Amarok).
+For more informations see http://amarok.kde.org/wiki/Moodbar
+
+
+Features
+--------
+
+* Moodbar column on track list.
+
+* Seek slider with current's song mood as background .
+
+* Background process to detect moods of entire collection.
+
+
+Requirements
+------------
+
+* banshee >= 1.5.1
+* gstreamer >= 0.10
+* fftw3f >= 0.7.28
+* moodbar binary
+
+If you have the above, you almost definitely have the required dependencies.
+
+
+Known Issues
+------------
+
+* On start it may take few seconds to load all moods to memory so, some moodbar
+  cells may be blank for a moment.
