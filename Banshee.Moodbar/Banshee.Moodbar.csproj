@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Banshee.Moodbar</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <RootNamespace>Banshee.Moodbar</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Mono.Addins, Version=0.1.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>banshee-1-core</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="Hyena, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-hyena</Package>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="Hyena.Gui, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-hyena-gui</Package>
+    </Reference>
+    <Reference Include="Banshee.Widgets, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-thickclient</Package>
+    </Reference>
+    <Reference Include="Banshee.ThickClient, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-thickclient</Package>
+    </Reference>
+    <Reference Include="Banshee.Services, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-services</Package>
+    </Reference>
+    <Reference Include="Banshee.Core, Version=1.5.0.0, Culture=neutral">
+      <Package>banshee-1-core</Package>
+    </Reference>
+    <Reference Include="Mono.Cairo" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="manifest.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Banshee.Moodbar\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Banshee.Moodbar\MoodbarService.cs" />
+    <Compile Include="Banshee.Moodbar\Moodbar.cs" />
+    <Compile Include="Banshee.Moodbar\MoodbarTrackEditorModifier.cs" />
+    <Compile Include="Banshee.Moodbar\ColumnCellMoodbar.cs" />
+    <Compile Include="Banshee.Moodbar\ConnectedMoodbarSeekSlider.cs" />
+    <Compile Include="Banshee.Moodbar\MoodbarSeekSlider.cs" />
+    <Compile Include="Banshee.Moodbar\MoodbarTrackEditorField.cs" />
+    <Compile Include="Banshee.Moodbar\MoodbarDetectJob.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Mono.Addins.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy FileWidth="120" NoTabsAfterNonTabs="True" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
+          <CSharpFormattingPolicy inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Addin id="Banshee.Moodbar"
+		name="Moodbar"
+		version="0.9alpha"
+		namespace=""
+		flags="None"
+		author="Paweł &quot;X4lldux&quot; Drygas"
+		copyright="© 2009 Pawel Drygas. Licensed under the MIT X11 license."
+		description="Provides moodbar support.">
+
+	<Dependencies>
+		<Addin id="Banshee.Services" version="1.0" />
+		<Addin id="Banshee.ThickClient" version="1.0" />
+		<Addin id="Banshee.Core" version="1.0" />
+	</Dependencies>
+
+	<Extension path="/Banshee/ServiceManager/Service">
+		<Service class="Banshee.Moodbar.MoodbarService" />
+	</Extension>
+
+	<Extension path="/Banshee/Gui/TrackEditor/Modifier">
+		<Modifier class="Banshee.Moodbar.MoodbarTrackEditorModifier" />
+	</Extension>
+
+</Addin>

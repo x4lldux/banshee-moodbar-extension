@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F5F142F9-F485-43C5-8531-1DF42A2F7C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banshee.Moodbar", "Banshee.Moodbar\Banshee.Moodbar.csproj", "{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF5F23F-8A8C-412C-AE53-3662C4AED3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F142F9-F485-43C5-8531-1DF42A2F7C39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F142F9-F485-43C5-8531-1DF42A2F7C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Packages.mdproj
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+*.pc
+*.tar.gz
+.temp-addin-registry/
+Banshee.Moodbar/bin/
+*.userprefs
+*.usertasks
+*.pidb
+*~
