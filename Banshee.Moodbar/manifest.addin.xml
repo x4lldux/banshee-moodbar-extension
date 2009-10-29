@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Addin id="Banshee.Moodbar"
 		name="Moodbar"
-		version="0.9alpha"
+		version="0.9a-lpha"
 		namespace=""
 		flags="None"
 		author="Paweł &quot;X4lldux&quot; Drygas"

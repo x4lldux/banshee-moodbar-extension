@@ -10,6 +10,7 @@
     <AssemblyName>Banshee.Moodbar</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <RootNamespace>Banshee.Moodbar</RootNamespace>
+    <ReleaseVersion>0.9-alpha</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,4 +86,9 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <AddinReference Include="Banshee.Services,1.0" />
+    <AddinReference Include="Banshee.ThickClient,1.0" />
+    <AddinReference Include="Banshee.Core,1.0" />
+  </ItemGroup>
 </Project>

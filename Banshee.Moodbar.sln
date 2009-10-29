@@ -20,5 +20,6 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Packages.mdproj
+		version = 0.9-alpha
 	EndGlobalSection
 EndGlobal
