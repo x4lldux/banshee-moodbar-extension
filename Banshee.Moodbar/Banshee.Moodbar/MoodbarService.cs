@@ -230,7 +230,9 @@ namespace Banshee.Moodbar
             
             Banshee.Base.ThreadAssist.SpawnFromMain (delegate {
                 for (int i = 0; i < source.TrackModel.Count; i++) {
-                    GetMoodbar (source.TrackModel[i].Uri);
+                    // Why it can be null sometimes ??????????????????
+                    if(source.TrackModel[i] != null)
+                        GetMoodbar (source.TrackModel[i].Uri);
                 }
             });
             loaded_sources.Add (source.DbId);

@@ -44,7 +44,6 @@ namespace Banshee.Moodbar
 
     public class MoodbarTrackEditorField : VBox
     {
-        Label lbl;
         Button detect_button;
         DrawingArea drawing_area;
         Alignment drawing_area_alignment;
@@ -74,10 +73,6 @@ namespace Banshee.Moodbar
             detect_button.Clicked += HandleDetectButtonClicked;
             detect_button.Show ();
             PackEnd (detect_button);
-            
-            lbl = new Label ("X4");
-            lbl.Show ();
-            PackEnd (lbl);
             
             ShowAll ();
         }
@@ -140,17 +135,6 @@ namespace Banshee.Moodbar
                         detect_button.Show ();
                         drawing_area_alignment.Hide ();
                     } else {
-                        var mood_file_path = moodbar.FilePath;
-                        int track_id = DatabaseTrackInfo.GetTrackIdForUri (uri.AbsoluteUri);
-                        var mood_file_name = ServiceManager.DbConnection.Query<string> ("SELECT FileName FROM MoodPaths WHERE TrackID = ? LIMIT 1", track_id);
-                        
-                        var last_coma = mood_file_path.LastIndexOf (',');
-                        var pre_last_coma = mood_file_path.LastIndexOf (',', last_coma-1);
-                        var last_coma_name = mood_file_name.LastIndexOf (',');
-                        var pre_last_coma_name = mood_file_name.LastIndexOf (',', last_coma_name-1);
-                        
-                        lbl.Text = string.Format ("{0}\n{1}", mood_file_path.Remove (0, pre_last_coma), mood_file_name.Remove (0, pre_last_coma_name));
-
                         detect_button.Hide ();
                         drawing_area_alignment.Show ();
                         drawing_area.QueueDraw ();
