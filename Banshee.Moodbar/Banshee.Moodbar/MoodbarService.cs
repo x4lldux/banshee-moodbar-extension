@@ -220,19 +220,19 @@ namespace Banshee.Moodbar
         {
             if (loaded_sources.Contains (source.DbId))
                 return;
-            
+         
             source.DatabaseTrackModel.Reloaded += delegate {
                 LoadAllMoodbarsFromSource (source);
             };
-            
+         
             if (source.TrackModel.Count == 0)
                 return;
-            
+
+            //TODO: maybe use a threadpool ?!
             Banshee.Base.ThreadAssist.SpawnFromMain (delegate {
-                for (int i = 0; i < source.TrackModel.Count; i++) {
-                    // Why it can be null sometimes ??????????????????
-                    if(source.TrackModel[i] != null)
-                        GetMoodbar (source.TrackModel[i].Uri);
+                CachedList<DatabaseTrackInfo> cached_list = CachedList<DatabaseTrackInfo>.CreateFromModel (source.DatabaseTrackModel);
+                for (int i = 0; i < cached_list.Count; i++) {
+                        GetMoodbar (cached_list[i].Uri);
                 }
             });
             loaded_sources.Add (source.DbId);
