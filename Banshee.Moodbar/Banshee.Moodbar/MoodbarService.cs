@@ -319,7 +319,8 @@ namespace Banshee.Moodbar
                 
                 if (moodbar != null) {
                     lock (sync) {
-                        loaded_moodbars.Add (audio_file_path, moodbar);
+                        if (!loaded_moodbars.ContainsKey (audio_file_path))
+                            loaded_moodbars.Add (audio_file_path, moodbar);
                     }
                 }
             }
@@ -351,26 +352,36 @@ namespace Banshee.Moodbar
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardError = true;
             proc.EnableRaisingEvents = true;
+            
+            int track_id = DatabaseTrackInfo.GetTrackIdForUri (audio_file_uri.AbsoluteUri);
+            
             proc.Exited += delegate {
                 // add entry to DB
-                int track_id = DatabaseTrackInfo.GetTrackIdForUri (audio_file_uri.AbsoluteUri);
                 string mood_file_name = Moodbar.GetMoodFileName (audio_file_uri.LocalPath);
-                ServiceManager.DbConnection.Execute (
-                    "INSERT OR REPLACE INTO MoodPaths (TrackID, FileName, LastAttempt) VALUES (?, ?, ?)",
-                    track_id, mood_file_name, DateTime.Now);
                 
                 if (proc.ExitCode == 0) {
+                    ServiceManager.DbConnection.Execute (
+                        "INSERT OR REPLACE INTO MoodPaths (TrackID, FileName, LastAttempt) VALUES (?, ?, ?)",
+                        track_id, mood_file_name, DateTime.Now);
+                    
                     // rename temp file to original name
                     Banshee.IO.File.Move (new SafeUri (SafeUri.FilenameToUri (temp_mood_file_path)),
                         new SafeUri (SafeUri.FilenameToUri (mood_file_path)));
                     
                     var moodbar = Moodbar.LoadMoodbar (mood_file_name);
                     lock (sync) {
-                        loaded_moodbars.Add (audio_file_uri.LocalPath, moodbar);
+                        if (!loaded_moodbars.ContainsKey (audio_file_uri.LocalPath))
+                            loaded_moodbars.Add (audio_file_uri.LocalPath, moodbar);
                     }
                     
                     when_finished_closure (moodbar);
                 } else {
+                    // an error occurred
+                    
+                    ServiceManager.DbConnection.Execute (
+                        "INSERT OR REPLACE INTO MoodPaths (TrackID, FileName, LastAttempt) VALUES (?, ?, ?)",
+                        track_id, null, DateTime.Now);
+                    
                     // when i used Banshe.IO.File.Delete it freezed - why ?!
                     System.IO.File.Delete (temp_mood_file_path);
                     Hyena.Log.ErrorFormat ("Error while detecting mood: program exited with exit code: {0}\n{1}", proc.ExitCode, proc.StandardOutput.ReadToEnd ());
@@ -381,6 +392,10 @@ namespace Banshee.Moodbar
             try {
                 proc.Start ();
             } catch (Exception e) {
+                ServiceManager.DbConnection.Execute (
+                    "INSERT OR REPLACE INTO MoodPaths (TrackID, FileName, LastAttempt) VALUES (?, ?, ?)",
+                    track_id, null, DateTime.Now);
+
                 Hyena.Log.ErrorFormat ("Error while detecting mood {0}", e);
                 when_finished_closure (null);
             }

@@ -63,16 +63,21 @@ namespace Banshee.Moodbar
             music_library = ServiceManager.SourceManager.MusicLibrary;
 
             CountCommand = new HyenaSqliteCommand (@"
-                SELECT count(TrackID)
+                SELECT Uri
                     FROM CoreTracks
-                    WHERE
+                    WHERE 
                         PrimarySourceID = ? AND
                         TrackID NOT IN (
                             SELECT TrackID FROM MoodPaths
                             WHERE LastAttempt > ?
-                        )",
+                        ) AND
+                        TrackID NOT IN (
+                            SELECT TrackID FROM MoodPaths
+                            WHERE FileName IS NOT NULL
+                        )
+                        ",
                 music_library.DbId, DateTime.Now - TimeSpan.FromDays (1));
-
+        
             SelectCommand = new HyenaSqliteCommand (@"
                 SELECT Uri
                     FROM CoreTracks
@@ -81,6 +86,10 @@ namespace Banshee.Moodbar
                         TrackID NOT IN (
                             SELECT TrackID FROM MoodPaths
                             WHERE LastAttempt > ?
+                        ) AND
+                        TrackID NOT IN (
+                            SELECT TrackID FROM MoodPaths
+                            WHERE FileName IS NOT NULL
                         )
                     LIMIT 1",
                 music_library.DbId, DateTime.Now - TimeSpan.FromDays (1));
@@ -113,9 +122,16 @@ namespace Banshee.Moodbar
             Log.Debug ("Detecting mood for " + uri.LocalPath);
             result_ready_event.Reset ();
             
-            if (IsCancelRequested) {//} || moodbar_service == null) {
+            if (IsCancelRequested) {
+                Log.Debug ("Detection canceled");
                 return;
             }
+            
+            if (moodbar_service == null) {
+                Log.Debug ("Detection stopped - moodbar_service is null");
+                return;
+            }
+
 
             moodbar_service.DetectMood (uri, m =>
             {
